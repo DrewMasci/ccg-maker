@@ -1,0 +1,10 @@
+<h1><%=@page_title %></h1>
+<div class="row">
+  <button id='cardCreation'>Create New Card</button>
+  <button>Edit Card</button>
+</div>
+<div class="row">
+  <% @cards.each do |card| %>
+    <input type="radio" value="<%=card[:id] %>" /> - <a href="/calculate/card/<%=card[:id] %>"><%=card[:card_name] %></a><br/>
+  <% end %>
+</div>

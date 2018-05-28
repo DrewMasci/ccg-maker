@@ -1,0 +1,19 @@
+<div class='card_body'>
+  <div class='card_frame'>
+  </div>
+  <div class='cost'>
+    <%=@card['cost'] %>
+  </div>
+  <div class='title'>
+    <%=@card['card_name'] %>
+  </div>
+  <div class='card_art'>
+    <%= image_tag("/uploads/#{@card['card_art']}") %>
+  </div>
+  <div class='hit_points'>
+    <%=@card['hit_points'] %>
+  </div>
+  <div class='attack_points'>
+    <%=@card['attack_points'] %>
+  </div>
+</div>

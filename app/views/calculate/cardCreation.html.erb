@@ -1,0 +1,16 @@
+<form method="post" action="/calculate/card/creation" enctype="multipart/form-data">
+  <input type="hidden" value="<%= form_authenticity_token %>" name="authenticity_token" />
+  <% @fields.each do |field| %>
+    <% if field == 'id' || field == 'created_at' || field == 'updated_at'
+      next
+    end %>
+
+    <% if field == 'card_art' %>
+        <%=file_field_tag 'card_art' %>
+    <% else %>
+      <%=field %>: <input type="text" name="<%=field %>" />
+    <% end %>
+    <br/>
+  <% end %>
+  <input type='submit' />
+</form>
