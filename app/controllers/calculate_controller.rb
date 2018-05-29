@@ -18,6 +18,8 @@ class CalculateController < ApplicationController
   end
 
   def cardCreation
+    @action = 'creation'
+
     @fields = Card.column_names
   end
 
@@ -38,6 +40,42 @@ class CalculateController < ApplicationController
     Card.where(:id => card_id).update_all(card_art: "#{card_id}#{extension}")
 
     redirect_to '/'
+  end
+
+  def updateCard
+    card_name = params[:card_name]
+    hit_points = params[:hit_points]
+    attack_points = params[:attack_points]
+    card_id = params[:card_id]
+
+    Card.where(:id => card_id).update_all(card_name: card_name, hit_points: hit_points, attack_points: attack_points)
+
+    uploaded_io = params[:card_art]
+    if uploaded_io != nil
+      card = Card.new.getCard(card_id)
+      card_art = card['card_art']
+      File.delete("public/uploads/#{card_art}")
+
+      extension = File.extname(uploaded_io.original_filename)
+
+      File.open(Rails.root.join('public', 'uploads', "#{card_id}#{extension}"), 'wb') do |file|
+        file.write(uploaded_io.read)
+      end
+
+      Card.where(:id => card_id).update_all(card_art: "#{card_id}#{extension}")
+    end
+
+    redirect_to "/calculate/card/#{card_id}"
+  end
+
+  def editCard
+    card_id = params[:card_id]
+    @card = Card.new.getCard(card_id)
+
+    @fields = Card.column_names
+    @action = 'update'
+
+    render 'cardCreation'
   end
 
   def deleteCard

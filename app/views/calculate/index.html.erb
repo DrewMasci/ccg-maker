@@ -1,10 +1,9 @@
 <h1><%=@page_title %></h1>
 <div class="row">
-  <button id='cardCreation'>Create New Card</button>
-  <button>Edit Card</button>
+  <a href='/calculate/card/creation'>Create New Card</a>
 </div>
 <div class="row">
   <% @cards.each do |card| %>
-    <a href="/calculate/card/<%=card[:id] %>"><%=card[:card_name] %></a> - edit <a href="/delete/card/<%=card[:id] %>">delete</a><br/>
+    <a href="/calculate/card/<%=card[:id] %>"><%=card[:card_name] %></a> - <a href="/edit/card/<%=card[:id] %>">edit</a> <a href="/delete/card/<%=card[:id] %>">delete</a><br/>
   <% end %>
 </div>

@@ -13,11 +13,3 @@
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .
-
-$(document).ready(function()
-{
-  $('#cardCreation').click(function()
-  {
-    window.location = '/calculate/card/creation';
-  });
-});
