@@ -2,14 +2,16 @@ class CalculateController < ApplicationController
   def index
     existing_cards = Array.new
     Card.find_each do |card|
-      existing_cards.push({:id => card.id, :card_name => card.card_name})
+      if(card.deleted_at == nil)
+        existing_cards.push({:id => card.id, :card_name => card.card_name})
+      end
     end
     @page_title = 'List of Cards'
     @cards = existing_cards
   end
 
   def viewCard
-    card_id = params[:card_id];
+    card_id = params[:card_id]
     card = Card.new.getCard(card_id)
 
     @card = card
@@ -35,6 +37,13 @@ class CalculateController < ApplicationController
 
     Card.where(:id => card_id).update_all(card_art: "#{card_id}#{extension}")
 
+    redirect_to '/'
+  end
+
+  def deleteCard
+    card_id = params[:card_id]
+
+    Card.where(:id => card_id).update_all(deleted_at: Time.now)
     redirect_to '/'
   end
 end
